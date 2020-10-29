@@ -8,34 +8,23 @@ module.exports = function transform(arr) {
     } else {
         let result = []
         for (let i = 0; i < arr.length; i++) {
+
             if (arr[i] === '--discard-next') {
-                if (i == arr.length - 1) {
-                    return result
-                } else {
-                 result.push(arr[i + 1])
-                    result.pop()
-                    i += 2
+                if (i !== arr.length - 1) {
+                    i += 1
                 }
             } else if (arr[i] === '--discard-prev') {
-                if (i == 0) {
-                    result.push(arr[i])
-                    result.pop()
-                } else {
+                if (i !== 0 && arr[i - 2] !== ('--discard-next')) {
                     result.pop()
                 }
             } else if (arr[i] === '--double-next') {
-                if (i == arr.length - 1) {
-                    return result
-                } else {
+                if (i !== arr.length - 1) {
                     result.push(arr[i + 1])
                 }
             } else if (arr[i] === '--double-prev') {
-                if (i == 0) {
-                    result.push(arr[i])
-                    result.pop()
-                } else {
-                    result.push(arr[i - 1])
-                }
+                if (i !== 0 && arr[i - 2] !== ('--discard-next')) {
+                        result.push(arr[i - 1])
+                    }
             } else {
                 result.push(arr[i])
             }
